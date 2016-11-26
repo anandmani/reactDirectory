@@ -9,26 +9,32 @@ class Register extends Component{
 
   constructor(){
     super();
+    this.updateFormInput = this.updateFormInput.bind(this);
     this.state={
-                fname:    {value:'', state:''},
-                lname:    {value:'', state:''},
-                age:      {value:'', state:''},
-                date:     {value:'', state:''},
-                gender:   {value:'', state:''},
-                phone:    {value:'', state:''},
-                addInfo:  {value:'', state:''}
-                }
+                fname:    {value:'', vState:null},
+                lname:    {value:'', vState:null},
+                age:      {value:'', vState:null},
+                date:     {value:'', vState:null},
+                gender:   {value:'', vState:null},
+                phone:    {value:'', vState:null},
+                addInfo:  {value:'', vState:null}
+              };
+  }
+
+  updateFormInput(field, metaObj){
+    // console.log("field, metaObj",field,metaObj);
+    this.setState({[`${field}`]:metaObj}); //In a javascript object we can refer to the key with or without quotes  //Using [" "] format to refer to object key
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <form>
-        <FieldGroup id="formControlsFirstname" type="text" label="First name" meta={this.state.fname} help="Firstname is a required field"/>
+        <FieldGroup id="formControlsFirstname" type="text" label="First name" meta={this.state.fname} updateMeta={this.updateFormInput.bind(this,"fname")} help="Firstname is a required field"/>
 
-        <FieldGroup id="formControlsLastname" type="text" label="Last name" meta={this.state.lname} help="Lastname is a required field"/>
+        <FieldGroup id="formControlsLastname" type="text" label="Last name" meta={this.state.lname} updateMeta={this.updateFormInput.bind(this,"lname")} help="Lastname is a required field"/>
 
-        <FieldGroup id="formControlsAge" type="text" label="Age" meta={this.state.age} help="Enter valid positive age"/>
+        <FieldGroup id="formControlsAge" type="text" label="Age" meta={this.state.age} updateMeta={this.updateFormInput.bind(this,"age")} help="Enter valid positive age"/>
 
         <DateSelector meta={this.state.date} />
 
@@ -41,7 +47,7 @@ class Register extends Component{
           </FormControl>
         </FormGroup>
 
-        <FieldGroup id="formControlPhone" type="text" label="Phone" meta={this.state.fname} help="Enter valid phone number of the format: +91-9663036666"/>
+        <FieldGroup id="formControlPhone" type="text" label="Phone" meta={this.state.phone} updateMeta={this.updateFormInput.bind(this,"phone")} help="Enter valid phone number of the format: +91-9663036666"/>
 
         <FormGroup controlId="formControlsAdditionalInfo">
          <ControlLabel>Additional Information</ControlLabel>

@@ -4,37 +4,37 @@ import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 class FieldGroup extends Component{
   constructor(){
     super();
-    this.getValidationState = this.getValidationState.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
     this.clickedInput = this.clickedInput.bind(this);
-    this.state = {value:'', clicked:false};
+
+    this.state = {clicked:false};
   }
 
   clickedInput(){  //The validation states: success,warning,failure should be applied only if the field is cliked, i.e, by default when the page loads, no validation state is set.
       this.setState({clicked:true});
   }
 
-  getValidationState(){
+  updateValidationState(inputValue){
     if(this.state.clicked == false) return null;
 
     switch(this.props.label){
-
       case "First name":
       case "Last name":
-        if(this.state.value.length == 0) return 'error';
+        if(inputValue.length == 0) return 'error';
         else return 'success';
       break;
 
       case "Age":
-        if(this.state.value > 0 && this.state.value<130) return 'success';
-        else if(this.state.value >= 130) return 'warning';
+        if(inputValue > 0 && inputValue<130) return 'success';
+        else if(inputValue >= 130) return 'warning';
         else return 'error';
       break;
 
       case "Phone":
-        if(this.state.value.length>20 || this.state.value.length<7) return 'error';
-        for(var i =0; i<this.state.value.length; i++){
-          if( !isNaN(this.state.value[i])||this.state.value[i]=='+'||this.state.value[i]=='-' ) return 'success';
+        if(inputValue.length>20 || inputValue.length<7) return 'error';
+        for(var i =0; i<inputValue.length; i++){
+          if( !isNaN(inputValue[i])||inputValue[i]=='+'||inputValue[i]=='-' ) return 'success';
           else return 'error';
         }
       break;
@@ -45,14 +45,18 @@ class FieldGroup extends Component{
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    var newVState = this.updateValidationState(e.target.value); //We are passing the entered value here, because we are using Object.assign({},this.props.meta,) in handleChange and updateValidationState methods. Before updateValidationState method runs, the props does not change. Therefore, this.props will not result in updated value
+
+    var newMetaObj = Object.assign({},this.props.meta,{value:e.target.value, vState:newVState});
+    // console.log("new metaobj",newMetaObj);
+    this.props.updateMeta(newMetaObj);
   }
 
   render(){
     return (//note validationState is not assigned a function. it is assigned the function's return value
-      <FormGroup controlId={this.props.id} validationState={this.getValidationState()}>
+      <FormGroup controlId={this.props.id} validationState={this.props.meta.vState}>
         <ControlLabel>{this.props.label}</ControlLabel>
-        <FormControl type={this.props.type}  onChange={this.handleChange} value={this.state.value} onClick={this.clickedInput}/>
+        <FormControl type={this.props.type}  onChange={this.handleChange} value={this.props.meta.value} onClick={this.clickedInput}/>
         {this.props.help && <HelpBlock style={{display: (this.state.clicked)?"block":"none"}}>{this.props.help}</HelpBlock>}
       </FormGroup>
     );
