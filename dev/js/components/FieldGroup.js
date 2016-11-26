@@ -57,7 +57,7 @@ class FieldGroup extends Component{
       <FormGroup controlId={this.props.id} validationState={this.props.meta.vState}>
         <ControlLabel>{this.props.label}</ControlLabel>
         <FormControl type={this.props.type}  onChange={this.handleChange} value={this.props.meta.value} onClick={this.clickedInput}/>
-        {this.props.help && <HelpBlock style={{display: (this.state.clicked)?"block":"none"}}>{this.props.help}</HelpBlock>}
+        {this.props.help && <HelpBlock style={{display: (this.props.meta.vState == 'success' || this.props.meta.vState == null)?"none":"block"}}>{this.props.help}</HelpBlock>}
       </FormGroup>
     );
   }
