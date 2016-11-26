@@ -1,16 +1,29 @@
 import React from 'react';
-import UserList from '../containers/user-list';
-import UserDetails from '../containers/user-detail';
-require('../../scss/style.scss');
+import Register from './Register';
+
+// function Dummy(...p){    //doesnt have to be props, using p instead
+//   console.log(p); //Array[3] of 3 objects, where first object = Object {id: "dummy", onClick: "haha"}.  Here, p has the same value as arguments.   p == arguments
+//   return(
+//     <div>
+//       Watafakaka
+//     </div>
+//   );
+// }
+
+//
+// function Dummy(p){
+//   console.log(p);  //Object {id: "dummy", onClick: "haha"}
+//   return(
+//     <div>
+//       Makakak
+//     </div>
+//   );
+// }
+
+
 
 const App = () => (
-    <div>
-        <h2>User List</h2>
-        <UserList />
-        <hr />
-        <h2>User Details</h2>
-        <UserDetails />
-    </div>
+  <Register/>
 );
 
 export default App;

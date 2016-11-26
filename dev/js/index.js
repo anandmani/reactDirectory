@@ -1,23 +1,11 @@
 import 'babel-polyfill';
+import 'babel-plugin-transform-object-rest-spread';
 import React from 'react';
 import ReactDOM from "react-dom";
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import promise from 'redux-promise';
-import createLogger from 'redux-logger';
-import allReducers from './reducers';
-import App from './components/App';
 
-const logger = createLogger();
-const store = createStore(
-    allReducers,
-    applyMiddleware(thunk, promise, logger)
-);
+import App from './components/App';
+import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
+<App/>,document.getElementById('root')
 );
