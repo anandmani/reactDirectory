@@ -9,21 +9,28 @@ class Register extends Component{
 
   constructor(){
     super();
-    // this.state = {value: ''};
-    // this.getValidationState = this.getValidationState.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.state={
+                fname:    {value:'', state:''},
+                lname:    {value:'', state:''},
+                age:      {value:'', state:''},
+                date:     {value:'', state:''},
+                gender:   {value:'', state:''},
+                phone:    {value:'', state:''},
+                addInfo:  {value:'', state:''}
+                }
   }
 
   render() {
+    console.log(this.state);
     return (
       <form>
-        <FieldGroup id="formControlsFirstname" type="text" label="First name" placeholder="Enter first name"/>
+        <FieldGroup id="formControlsFirstname" type="text" label="First name" meta={this.state.fname} help="Firstname is a required field"/>
 
-        <FieldGroup id="formControlsLastname" type="text" label="Last name" placeholder="Enter last name"/>
+        <FieldGroup id="formControlsLastname" type="text" label="Last name" meta={this.state.lname} help="Lastname is a required field"/>
 
-        <FieldGroup id="formControlsAge" type="text" label="Age" placeholder="Enter age"/>
+        <FieldGroup id="formControlsAge" type="text" label="Age" meta={this.state.age} help="Enter valid positive age"/>
 
-        <DateSelector/>
+        <DateSelector meta={this.state.date} />
 
         <FormGroup controlId="formControlsGender">
           <ControlLabel>Gender</ControlLabel>
@@ -34,11 +41,11 @@ class Register extends Component{
           </FormControl>
         </FormGroup>
 
-        <FieldGroup id="formControlPhone" type="text" label="Phone" placeholder="Enter phone number"/>
+        <FieldGroup id="formControlPhone" type="text" label="Phone" meta={this.state.fname} help="Enter valid phone number of the format: +91-9663036666"/>
 
         <FormGroup controlId="formControlsAdditionalInfo">
          <ControlLabel>Additional Information</ControlLabel>
-         <FormControl componentClass="textarea" placeholder="Enter Additional Information" />
+         <FormControl componentClass="textarea" />
        </FormGroup>
 
        <Button type="submit">Submit</Button>

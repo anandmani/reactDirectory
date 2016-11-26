@@ -15,7 +15,7 @@ class FieldGroup extends Component{
   }
 
   getValidationState(){
-    if(this.state.clicked == false) return '';
+    if(this.state.clicked == false) return null;
 
     switch(this.props.label){
 
@@ -52,8 +52,8 @@ class FieldGroup extends Component{
     return (//note validationState is not assigned a function. it is assigned the function's return value
       <FormGroup controlId={this.props.id} validationState={this.getValidationState()}>
         <ControlLabel>{this.props.label}</ControlLabel>
-        <FormControl {...this.props} onChange={this.handleChange} value={this.state.value} onClick={this.clickedInput}/>
-        {this.props.help && <HelpBlock>{this.props.help}</HelpBlock>}
+        <FormControl type={this.props.type}  onChange={this.handleChange} value={this.state.value} onClick={this.clickedInput}/>
+        {this.props.help && <HelpBlock style={{display: (this.state.clicked)?"block":"none"}}>{this.props.help}</HelpBlock>}
       </FormGroup>
     );
   }
