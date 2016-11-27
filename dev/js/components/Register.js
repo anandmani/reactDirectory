@@ -10,12 +10,13 @@ class Register extends Component{
   constructor(){
     super();
     this.updateFormInput = this.updateFormInput.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state={
                 fname:    {value:'', vState:null},
                 lname:    {value:'', vState:null},
                 age:      {value:'', vState:null},
                 date:     {value:'', vState:null},
-                gender:   {value:'', vState:null},
+                gender:   {value:'Female', vState:null},
                 phone:    {value:'', vState:null},
                 addInfo:  {value:'', vState:null}
               };
@@ -24,6 +25,12 @@ class Register extends Component{
   updateFormInput(field, metaObj){
     // console.log("field, metaObj",field,metaObj);
     this.setState({[`${field}`]:metaObj}); //In a javascript object we can refer to the key with or without quotes  //Using [" "] format to refer to object key
+  }
+
+  handleChange(e, field){
+    var newMetaObj = Object.assign({},this.state[field],{value:e.target.value});
+    // console.log("new meta obj",newMetaObj);
+    this.updateFormInput(field, newMetaObj);
   }
 
   render() {
@@ -40,7 +47,7 @@ class Register extends Component{
 
         <FormGroup controlId="formControlsGender">
           <ControlLabel>Gender</ControlLabel>
-          <FormControl componentClass="select">
+          <FormControl componentClass="select" value={this.state.gender.value} onChange={  (e)=>{ this.handleChange(e,"gender") }  } >
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
@@ -51,7 +58,7 @@ class Register extends Component{
 
         <FormGroup controlId="formControlsAdditionalInfo">
          <ControlLabel>Additional Information</ControlLabel>
-         <FormControl componentClass="textarea" />
+         <FormControl componentClass="textarea" value={this.state.addInfo.value} onChange={  (e)=>{ this.handleChange(e,"addInfo") }  } />
        </FormGroup>
 
        <Button type="submit">Submit</Button>

@@ -56,8 +56,8 @@ class FieldGroup extends Component{
     return (//note validationState is not assigned a function. it is assigned the function's return value
       <FormGroup controlId={this.props.id} validationState={this.props.meta.vState}>
         <ControlLabel>{this.props.label}</ControlLabel>
-        <FormControl type={this.props.type}  onChange={this.handleChange} value={this.props.meta.value} onClick={this.clickedInput}/>
-        {this.props.help && <HelpBlock style={{display: (this.props.meta.vState == 'success' || this.props.meta.vState == null)?"none":"block"}}>{this.props.help}</HelpBlock>}
+        <FormControl type={this.props.type}  onChange={this.handleChange} value={this.props.meta.value} onFocus={this.clickedInput}/>
+        {this.props.help && <HelpBlock style={{display: (this.props.meta.vState == 'success' || (this.props.meta.vState == null && this.state.clicked ==false))?"none":"block"}}>{this.props.help}</HelpBlock>}
       </FormGroup>
     );
   }
