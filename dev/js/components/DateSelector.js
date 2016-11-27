@@ -5,6 +5,18 @@ class DateSelector extends Component{
   constructor(){
     super();
     this.dayDropdown = this.dayDropdown.bind(this);
+    this.parseDate = this.parseDate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.dayValue = null;
+    this.monthValue = null;
+    this.yearValue = null;
+  }
+
+  parseDate(){
+      var dateArray = this.props.meta.value.split("-");
+      this.dayValue = dateArray[0];
+      this.monthValue = dateArray[1];
+      this.yearValue = dateArray[2];
   }
 
   dayDropdown(){
@@ -21,7 +33,7 @@ class DateSelector extends Component{
     var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     return months.map(
       (item,index)=>{
-        return <option key={index} value={`${item}`}>{item}</option>
+        return <option key={index} value={`${index+1}`}>{item}</option>
       }
     );
   }
@@ -40,27 +52,53 @@ class DateSelector extends Component{
       );
   }
 
+  handleChange(event,field){
+    var newDate = null;
+    switch (field) {
+      case "day":
+        newDate = [event.target.value, this.monthValue, this.yearValue].join("-");
+      break;
+
+      case "month":
+        newDate = [this.dayValue, event.target.value, this.yearValue].join("-");
+      break;
+
+      case "year":
+        newDate = [this.dayValue, this.monthValue, event.target.value].join("-");
+      break;
+
+      default:
+        throw new Error('Check handleChange DateSelector');
+      break;
+    }
+    // console.log("newDate is ",newDate);
+    var newMetaObj = Object.assign({},this.props.meta,{value: newDate});
+    // console.log("new metaobj",newMetaObj);
+    this.props.updateMeta(newMetaObj);
+  }
+
   render(){
+    this.parseDate();
     return(//using componentClass = fieldset because otherwise warning comes saying, form cannot be child of form.
       <Form componentClass="fieldset" inline>
 
-        <FormGroup controlId="formControlsDay">
+        <FormGroup controlId="formControlsDay" className="dateSegment">
         <ControlLabel>Day</ControlLabel>
-        <FormControl componentClass="select">
+        <FormControl componentClass="select" value={this.dayValue} onChange={ (e)=>{ this.handleChange(e,"day")} } >
           {this.dayDropdown()}
         </FormControl>
         </FormGroup>
 
-        <FormGroup controlId="formControlsMonth">
+        <FormGroup controlId="formControlsMonth" className="dateSegment">
         <ControlLabel>Month</ControlLabel>
-        <FormControl componentClass="select">
+        <FormControl componentClass="select" value={this.monthValue} onChange={ (e)=>{ this.handleChange(e,"month")} } >
           {this.monthDropdown()}
         </FormControl>
         </FormGroup>
 
-        <FormGroup controlId="formControlsYear">
+        <FormGroup controlId="formControlsYear" className="dateSegment">
         <ControlLabel>Year</ControlLabel>
-        <FormControl componentClass="select">
+        <FormControl componentClass="select" value={this.yearValue} onChange={ (e)=>{ this.handleChange(e,"year")} } >
           {this.yearDropdown()}
         </FormControl>
         </FormGroup>

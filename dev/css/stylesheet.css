@@ -1,5 +1,18 @@
-
-
-h2 {
-	color: $primary;
+body{
+	background-color: black;
+}
+#navBar{
+	background-color: #dddddd;
+	padding: 5px;
+	border-bottom: 1px solid #337ab7;
+}
+#registerForm{
+	background-color: white;
+	border-radius: 4px;
+	margin-top: 20px;
+	padding: 20px;
+}
+.dateSegment{
+	padding-bottom: 10px;
+	padding-right: 20px;
 }

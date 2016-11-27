@@ -11,14 +11,15 @@ class Register extends Component{
     super();
     this.updateFormInput = this.updateFormInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
     this.state={
-                fname:    {value:'', vState:null},
-                lname:    {value:'', vState:null},
-                age:      {value:'', vState:null},
-                date:     {value:'', vState:null},
-                gender:   {value:'Female', vState:null},
-                phone:    {value:'', vState:null},
-                addInfo:  {value:'', vState:null}
+                fname:    {value:'',              vState:null,        required:true},
+                lname:    {value:'',              vState:null,        required:true},
+                age:      {value:'',              vState:null,        required:true},
+                date:     {value:'1-1-2016',      vState:'success',   required:true},
+                gender:   {value:'Female',        vState:'success',   required:true},
+                phone:    {value:'',              vState:null,        required:true},
+                addInfo:  {value:'',              vState:null,        required:false}
               };
   }
 
@@ -33,17 +34,42 @@ class Register extends Component{
     this.updateFormInput(field, newMetaObj);
   }
 
+  submitForm(event){
+    var flag = 0;
+    var payload = [];
+    for(var field in this.state){
+      if(this.state.hasOwnProperty(field)){
+        if(this.state[field].required == true && this.state[field].vState!=='success'){ //Submitting form without filling out field. Therefore, we're making it's vState Error from null or whatever it was
+          event.preventDefault();
+          var newMetaObj = Object.assign({},this.state[field],{vState:'error'});
+          this.setState({[`${field}`]:newMetaObj});
+          flag = 1;   //Dont have to make POST call
+        }
+      }
+    }
+
+    if(flag == 0){//Make POST call
+      for(var field in this.state){
+        if(this.state.hasOwnProperty(field)){
+          payload.push(   { [field]:this.state[field].value }   ); //pushing {fname: "Anand"}, {lname: "Mani"}, ...
+        }
+      }
+      console.log("making post call with ",payload);
+    }
+
+  }
+
   render() {
     // console.log(this.state);
     return (
-      <form>
+      <form id="registerForm">
         <FieldGroup id="formControlsFirstname" type="text" label="First name" meta={this.state.fname} updateMeta={this.updateFormInput.bind(this,"fname")} help="Firstname is a required field"/>
 
         <FieldGroup id="formControlsLastname" type="text" label="Last name" meta={this.state.lname} updateMeta={this.updateFormInput.bind(this,"lname")} help="Lastname is a required field"/>
 
         <FieldGroup id="formControlsAge" type="text" label="Age" meta={this.state.age} updateMeta={this.updateFormInput.bind(this,"age")} help="Enter valid positive age"/>
 
-        <DateSelector meta={this.state.date} />
+        <DateSelector meta={this.state.date} updateMeta={this.updateFormInput.bind(this,"date")} />
 
         <FormGroup controlId="formControlsGender">
           <ControlLabel>Gender</ControlLabel>
@@ -61,7 +87,7 @@ class Register extends Component{
          <FormControl componentClass="textarea" value={this.state.addInfo.value} onChange={  (e)=>{ this.handleChange(e,"addInfo") }  } />
        </FormGroup>
 
-       <Button type="submit">Submit</Button>
+       <Button type="submit" onClick={this.submitForm}>Submit</Button>
 
       </form>
     );
