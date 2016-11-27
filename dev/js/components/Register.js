@@ -36,7 +36,7 @@ class Register extends Component{
 
   submitForm(event){
     var flag = 0;
-    var payload = [];
+    var payload = {};
     for(var field in this.state){
       if(this.state.hasOwnProperty(field)){
         if(this.state[field].required == true && this.state[field].vState!=='success'){ //Submitting form without filling out field. Therefore, we're making it's vState Error from null or whatever it was
@@ -51,7 +51,8 @@ class Register extends Component{
     if(flag == 0){//Make POST call
       for(var field in this.state){
         if(this.state.hasOwnProperty(field)){
-          payload.push(   { [field]:this.state[field].value }   ); //pushing {fname: "Anand"}, {lname: "Mani"}, ...
+          // payload = {fname:"anand", lanme:"Mani",....}
+          payload[field] = this.state[field].value;
         }
       }
       console.log("making post call with ",payload);
