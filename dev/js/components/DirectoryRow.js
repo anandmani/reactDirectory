@@ -21,13 +21,13 @@ class DirectoryRow extends Component{
   render(){
     return(
       <Row className="rowPatientList" onClick={this.open}>
-        <Col xs={3}>
+        <Col xs={4}>
           {this.props.patientObj.patient_id}
         </Col>
-        <Col xs={3}>
+        <Col xs={4}>
           {this.props.patientObj.firstname}
         </Col>
-        <Col xs={3}>
+        <Col xs={4}>
           {this.props.patientObj.lastname}
         </Col>
 

@@ -12,6 +12,23 @@ body{
 	margin-top: 20px;
 	padding: 20px;
 }
+#searchBar{
+	padding-bottom: 10px;
+}
+#searchInput{
+	background-color: white;
+	border: none;
+  border-radius: 4px;
+	display: inline-block;
+  height: 30px;
+  line-height: 25px;
+  overflow: hidden;
+  outline: none;
+	padding-left: 10px;
+  resize: none;
+  width: 300px;
+	word-wrap: none;
+}
 #directoryContents{
 	margin-top: 20px;
 	padding-top: 20px;
