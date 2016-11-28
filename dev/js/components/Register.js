@@ -12,6 +12,10 @@ class Register extends Component{
     this.updateFormInput = this.updateFormInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.postDetails = this.postDetails.bind(this);
+
+    this.url = "http://localhost:9000/patients/v1/savePatient";//url to post details
+
     this.state={
                 fname:    {value:'',              vState:null,        required:true},
                 lname:    {value:'',              vState:null,        required:true},
@@ -32,6 +36,20 @@ class Register extends Component{
     var newMetaObj = Object.assign({},this.state[field],{value:e.target.value});
     // console.log("new meta obj",newMetaObj);
     this.updateFormInput(field, newMetaObj);
+  }
+
+  postDetails(payload){
+    var http = new XMLHttpRequest();
+    http.open("POST", this.url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-Type", "application/json");
+    http.onreadystatechange = function() {//Call a function when the state changes.
+      if(http.readyState == 4 && http.status == 200) {
+        console.log(http.responseText);
+      }
+    }
+    http.send( JSON.stringify(payload) );//When passing a payload in front-end, always JSON stringify the javascript object! javascript objects are not the same as JSON. Failure to do so may incorrectly show CORS failure
   }
 
   submitForm(event){
@@ -55,9 +73,10 @@ class Register extends Component{
           payload[field] = this.state[field].value;
         }
       }
-      console.log("making post call with ",payload);
+      // event.preventDefault(); //Uncomment this for debugging
+      console.log(payload);
+      this.postDetails(payload);
     }
-
   }
 
   render() {
