@@ -16,6 +16,11 @@ ReactDOM.render(
       <Route path="/register" component={Register}/>
       <Route path="/directory" component={Directory}/>
    </Route>
+   <Route path="/reactDirectory/src/" component={NavBar}>
+      <IndexRoute component={Register}/>
+      <Route path="/reactDirectory/src/register" component={Register}/>
+      <Route path="/reactDirectory/src/directory" component={Directory}/>
+   </Route>
  </Router>
  ,document.getElementById('root')
 );
