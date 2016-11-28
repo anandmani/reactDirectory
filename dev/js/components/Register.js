@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import FieldGroup from './FieldGroup';
 import DateSelector from './DateSelector';
 import {FormGroup, ControlLabel, FormControl, HelpBlock, Button} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 // import {Form} from 'react-bootstrap';
 
 
@@ -82,37 +83,43 @@ class Register extends Component{
   render() {
     // console.log(this.state);
     return (
-      <form id="registerForm">
-        <FieldGroup id="formControlsFirstname" type="text" label="First name" meta={this.state.fname} updateMeta={this.updateFormInput.bind(this,"fname")} help="Firstname is a required field"/>
+        <Grid>
+          <Row>
+            <Col xs={8} xsOffset={2}>
 
-        <FieldGroup id="formControlsLastname" type="text" label="Last name" meta={this.state.lname} updateMeta={this.updateFormInput.bind(this,"lname")} help="Lastname is a required field"/>
+              <form id="registerForm">
+                <FieldGroup id="formControlsFirstname" type="text" label="First name" meta={this.state.fname} updateMeta={this.updateFormInput.bind(this,"fname")} help="Firstname is a required field"/>
 
-        <FieldGroup id="formControlsAge" type="text" label="Age" meta={this.state.age} updateMeta={this.updateFormInput.bind(this,"age")} help="Enter valid positive age"/>
+                <FieldGroup id="formControlsLastname" type="text" label="Last name" meta={this.state.lname} updateMeta={this.updateFormInput.bind(this,"lname")} help="Lastname is a required field"/>
 
-        <DateSelector meta={this.state.date} updateMeta={this.updateFormInput.bind(this,"date")} />
+                <FieldGroup id="formControlsAge" type="text" label="Age" meta={this.state.age} updateMeta={this.updateFormInput.bind(this,"age")} help="Enter valid positive age"/>
 
-        <FormGroup controlId="formControlsGender">
-          <ControlLabel>Gender</ControlLabel>
-          <FormControl componentClass="select" value={this.state.gender.value} onChange={  (e)=>{ this.handleChange(e,"gender") }  } >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </FormControl>
-        </FormGroup>
+                <DateSelector meta={this.state.date} updateMeta={this.updateFormInput.bind(this,"date")} />
 
-        <FieldGroup id="formControlPhone" type="text" label="Phone" meta={this.state.phone} updateMeta={this.updateFormInput.bind(this,"phone")} help="Enter valid phone number of the format: +91-9663036666"/>
+                <FormGroup controlId="formControlsGender">
+                  <ControlLabel>Gender</ControlLabel>
+                  <FormControl componentClass="select" value={this.state.gender.value} onChange={  (e)=>{ this.handleChange(e,"gender") }  } >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </FormControl>
+                </FormGroup>
 
-        <FormGroup controlId="formControlsAdditionalInfo">
-         <ControlLabel>Additional Information</ControlLabel>
-         <FormControl componentClass="textarea" value={this.state.addInfo.value} onChange={  (e)=>{ this.handleChange(e,"addInfo") }  } />
-       </FormGroup>
+                <FieldGroup id="formControlPhone" type="text" label="Phone" meta={this.state.phone} updateMeta={this.updateFormInput.bind(this,"phone")} help="Enter valid phone number of the format: +91-9663036666"/>
 
-       <Button type="submit" onClick={this.submitForm}>Submit</Button>
+                <FormGroup controlId="formControlsAdditionalInfo">
+                 <ControlLabel>Additional Information</ControlLabel>
+                 <FormControl componentClass="textarea" value={this.state.addInfo.value} onChange={  (e)=>{ this.handleChange(e,"addInfo") }  } />
+               </FormGroup>
 
-      </form>
+               <Button type="submit" onClick={this.submitForm}>Submit</Button>
+              </form>
+
+          </Col>
+        </Row>
+      </Grid>
     );
   }
-
 }
 
 
