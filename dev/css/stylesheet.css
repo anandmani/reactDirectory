@@ -20,7 +20,7 @@ body{
 }
 #rowHeaderPatientList{
 	background-color: #337ab7;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 	border-radius: 4px;
 	color: white;
 	font-weight: bold;
@@ -29,7 +29,7 @@ body{
 }
 .rowPatientList{
 	background-color: white;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 	border-radius: 4px;
 	padding: 5px;
 	cursor: pointer;
@@ -37,6 +37,10 @@ body{
 .rowPatientList:hover{
 	background-color: grey;
 	color:white;
+}
+.modalRowDescription{
+	padding-bottom: 10px;
+	font-weight: bold;
 }
 .dateSegment{
 	padding-bottom: 10px;

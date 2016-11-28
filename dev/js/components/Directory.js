@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 
+import DirectoryRow from './DirectoryRow';
+
 class Directory extends Component{
 
   constructor(){
@@ -23,8 +25,8 @@ class Directory extends Component{
         this.setState({patientList: JSON.parse(http.responseText)});
         // Response object is of the form: {
         // DOB:"1-2-1960"
-        // additional_info:"Bob is whack!
-        // "age:99
+        // additional_info:"Bob is whack!"
+        // age:99
         // firstname:"Bob"
         // gender:"Male"
         // lastname:"Marley"
@@ -39,17 +41,7 @@ class Directory extends Component{
   renderPatientList(){
       return this.state.patientList.map((patientObj,index)=>{
         return(
-          <Row key={index} className="rowPatientList">
-            <Col xs={3}>
-              {patientObj.patient_id}
-            </Col>
-            <Col xs={3}>
-              {patientObj.firstname}
-            </Col>
-            <Col xs={3}>
-              {patientObj.lastname}
-            </Col>
-          </Row>
+          <DirectoryRow patientObj={patientObj} key={index}/>
         );
       });
   }
