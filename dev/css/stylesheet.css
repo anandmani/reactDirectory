@@ -12,6 +12,32 @@ body{
 	margin-top: 20px;
 	padding: 20px;
 }
+#directoryContents{
+	margin-top: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+#rowHeaderPatientList{
+	background-color: #337ab7;
+	border: 1px solid black;
+	border-radius: 4px;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+
+}
+.rowPatientList{
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 5px;
+	cursor: pointer;
+}
+.rowPatientList:hover{
+	background-color: grey;
+	color:white;
+}
 .dateSegment{
 	padding-bottom: 10px;
 	padding-right: 20px;

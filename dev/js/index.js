@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import NavBar from './components/NavBar';
 import Register from './components/Register';
+import Directory from './components/Directory';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../css/stylesheet.css';
 import {Router, Route, hashHistory, IndexRoute, browserHistory, Redirect } from 'react-router';
@@ -13,6 +14,7 @@ ReactDOM.render(
    <Route path="/" component={NavBar}>
       <IndexRoute component={Register}/>
       <Route path="/register" component={Register}/>
+      <Route path="/directory" component={Directory}/>
    </Route>
  </Router>
  ,document.getElementById('root')
